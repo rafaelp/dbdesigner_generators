@@ -67,6 +67,7 @@ class DbdesignerMigrationGenerator < Rails::Generator::NamedBase
       m.directory File.join('db')
       m.migration_template 'dbdesigner_migration.rb',"db/migrate", :migration_file_name => "#{file_path}"
     end
+
   end
 
 end
@@ -194,20 +195,18 @@ PREPARED TO USE FOR MODELS
   end
 
   class Table
-    attr_accessor :id, :name, :comments, :columns, :indexes, :relationships, :options, :capitalized
+    attr_accessor :id, :name, :comments, :columns, :indexes, :relationships, :options, :references
 
     alias_method :fields, :columns
 
     def initialize(xmlobj)
       @id = xmlobj.attributes['ID']
       @name = xmlobj.attributes['Tablename']
-      @capitalized = []
-      @name.split("_").each { |c| @capitalized << c.capitalize }
-      @capitalized = @capitalized.join
       @comments = xmlobj.attributes['Comments'].split("\\n")
       @columns = []
       @indexes = []
       @relationships = []
+      @references = []
       @options = {}
       @process = ((Model.include_table? @name) and (@comments.empty? or @comments.first.downcase.strip != "ignore"))
 
@@ -237,8 +236,8 @@ PREPARED TO USE FOR MODELS
       if(@columns.find {|c| c.id == id})
         raise "Duplicate column definition on #{self.name} #{name}"
       end
-      column = Column.new(xmlobj)
-      @columns.push(column)
+
+      @columns << Column.new(xmlobj)
     end
 
     def add_index(xmlobj)
@@ -254,8 +253,12 @@ PREPARED TO USE FOR MODELS
       if(@indexes.find {|i| i.id == id})
         raise "Duplicate index definition on #{self.name} #{name} (#{id})"
       end
-      index = Index.new(self, xmlobj)
-      @indexes.push(index)
+
+      @indexes << Index.new(self, xmlobj)
+    end
+
+    def add_references(reference)
+      @references << reference
     end
 
   end
@@ -338,13 +341,13 @@ PREPARED TO USE FOR MODELS
       on_delete = xmlobj.attributes['RefDef'].match(/OnDelete=([0-4]{1})/)
       if on_delete
         @on_delete = @dbdesigner_codes[on_delete[1].to_i]
-        options['on_delete'] = @on_delete
+        options['on_delete'] = @on_delete unless on_delete[1] == '3'
       end
 
       on_update = xmlobj.attributes['RefDef'].match(/OnUpdate=([0-4]{1})/)
       if on_update
         @on_update = @dbdesigner_codes[on_update[1].to_i]
-        options['on_update'] = @on_update
+        options['on_update'] = @on_update unless on_update[1] == '3'
       end
       @options = Model.format_options(options)
       
@@ -354,6 +357,8 @@ PREPARED TO USE FOR MODELS
             puts "Warning: foreign_key #{@from_table.name}.#{@from_column} => #{@to_table.name}.#{@to_column}\n"
         end
       end
+      
+      @from_table.add_references(@to_table) if @to_column.eql? 'id'
     end
   end
 
