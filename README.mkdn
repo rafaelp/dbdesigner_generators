@@ -1,0 +1,48 @@
+# DBDesigner Migration Generator
+
+## DESCRIPTION
+
+This gem generates ActiveRecord Migration files from a DB Designer 4 xml file.
+
+## REQUIREMENTS
+
+* activerecord
+
+## INSTALLATION
+
+    $ sudo gem sources -a http://gems.github.com (you only have to do this once)
+    $ sudo gem install rafaelp-dbdesigner_migration_generator
+
+Inset line below in your *config/environments/development.rb*
+
+    require 'dbdesigner_migration_generator'
+
+## USAGE
+
+Save you model in *db/dbdesigner_model.xml*, then run:
+
+  $ ruby script/generate dbdesigner_migration [MigrationName] [only|except] [table1] [table2] [table3]
+
+### Example 1
+
+  $ ruby script/generate dbdesigner_migration CompleteDatabase
+
+### Example 2
+
+  $ ruby script/generate dbdesigner_migration CreateAccountsAndUsers only accounts users
+
+### Example 3
+
+  $ ruby script/generate dbdesigner_migration CreateOtherTables except accounts users
+
+### Tricks
+
+You can put the magical keyword *ignore* on first line of table comments, on your model at DB Designer, to automatically ignore the table on migration generation.
+
+## LICENSE
+
+DBDesigner Generator is released under the MIT License.
+
+## AUTHOR
+
+[Rafael Lima](http://rafael.adm.br) at [BielSystems](http://bielsystems.com.br) and [Myfreecomm](http://myfreecomm.com.br)
