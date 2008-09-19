@@ -41,7 +41,7 @@ You can put the magical keyword *ignore* on first line of table comments, on you
 
 ## LICENSE
 
-DBDesigner Generator is released under the MIT License.
+DBDesigner Migration Generator is released under the MIT License.
 
 ## AUTHOR
 
