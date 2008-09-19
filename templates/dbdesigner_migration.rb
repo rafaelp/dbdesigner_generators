@@ -1,9 +1,11 @@
 require 'postgresql_migrations'
 
+<%= "=begin" %>
 <% tables.each do |table| -%>
-# script/generate rspec_model -c --skip-migration <%= table.name.camelize %> <% table.references.each do |table| -%><%= table.name %>:reference <% end -%> <% table.fields.each do |field| -%><%= "#{field.name}:#{field.datatype}" %> <% end -%>
+./script/generate rspec_model -c --skip-migration <%= table.name.singularize.camelize %> <% table.references.each do |reference_table| -%><%= reference_table.name %>:reference <% end -%> <% table.fields_without_references.each do |field| -%><%= "#{field.name}:#{field.datatype}" %> <% end -%>
 
 <% end -%>
+<%= "=end" %>
 
 class <%= migration_name.underscore.camelize %> < ActiveRecord::Migration
   def self.up<% tables.each do |table| -%>

@@ -204,6 +204,7 @@ PREPARED TO USE FOR MODELS
       @name = xmlobj.attributes['Tablename']
       @comments = xmlobj.attributes['Comments'].split("\\n")
       @columns = []
+      @fields_without_reference = []
       @indexes = []
       @relationships = []
       @references = []
@@ -224,6 +225,18 @@ PREPARED TO USE FOR MODELS
 
     def ignore?
       !@process
+    end
+
+    # Meio cambalacho, eu reconheço que sou fanfarrão!
+    def fields_without_references
+      return @fields_without_reference unless @fields_without_reference.empty?
+      fields.each do |field|
+        @fields_without_reference << field
+      end
+      references.each do |reference|
+        @fields_without_reference.delete_if { |field| field.name == "#{reference.name.singularize}_id" }
+      end
+      @fields_without_reference
     end
 
     def add_column(xmlobj)
