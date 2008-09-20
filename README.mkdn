@@ -1,4 +1,4 @@
-# DBDesigner Migration Generator
+# DBDesigner Generators
 
 ## DESCRIPTION
 
@@ -11,7 +11,7 @@ This gem generates ActiveRecord Migration files from a DB Designer 4 xml file.
 ## INSTALLATION
 
     $ sudo gem sources -a http://gems.github.com (you only have to do this once)
-    $ sudo gem install rafaelp-dbdesigner_migration_generator
+    $ sudo gem install rafaelp-dbdesigner_generators
 
 Inset line below in your *config/environments/development.rb*
 
@@ -41,7 +41,7 @@ You can put the magical keyword *ignore* on first line of table comments, on you
 
 ## LICENSE
 
-DBDesigner Migration Generator is released under the MIT License.
+DBDesigner Generators is released under the MIT License.
 
 ## AUTHOR
 
