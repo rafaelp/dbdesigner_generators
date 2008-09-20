@@ -1,6 +1,6 @@
 spec = Gem::Specification.new do |s| 
   s.name = "dbdesigner_generators"
-  s.version = "0.1.2"
+  s.version = "0.1.3"
   s.date     = "2009-09-20"
   s.author = "Rafael Lima"
   s.email = "contato@rafael.adm.br"
@@ -8,6 +8,7 @@ spec = Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.summary = "Generates ActiveRecord Migration files from a DB Designer 4 xml file."
   s.files    = [
+    "Manifest",
     "MIT-LICENSE",
     "Rakefile",
 		"README.mkdn",
