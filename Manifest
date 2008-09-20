@@ -1,0 +1,8 @@
+rails_generators/dbdesigner_migration/dbdesigner_migration_generator.rb
+rails_generators/dbdesigner_migration/templates/dbdesigner_migration.rb
+rails_generators/dbdesigner_migration/USAGE
+dbdesigner_generators.gemspec
+Manifest
+MIT-LICENSE
+Rakefile
+README.mkdn

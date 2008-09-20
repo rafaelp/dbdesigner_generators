@@ -1,0 +1,21 @@
+Description:
+    Stubs out a new migration. Pass the migration name, either CamelCased or
+    under_scored, and an optional list of arguments.
+ 
+    This reads db/dbdesigner_model.xml and generates a migration in db/migrations.
+ 
+Examples:
+    `./script/generate dbdesigner_migration CompleteDatabase`
+ 
+        creates a migration with all tables, columns, foreign keys:
+            Migration: db/migrate/XXX_complete_database.rb
+ 
+    `./script/generate dbdesigner_migration CreateAccountsAndUsers only accounts users`
+ 
+        creates a migration with accounts and users tables and their respective foreign keys
+            Migration: db/migrate/XXX_create_accounts_and_users.rb
+ 
+    `./script/generate dbdesigner_migration CreateOtherTables except accounts users`
+ 
+        creates a migration with all tables except accounts and users tables
+            Migration: db/migrate/XXX_create_other_tables.rb
