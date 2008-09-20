@@ -13,10 +13,6 @@ This gem generates ActiveRecord Migration files from a DB Designer 4 xml file.
     $ sudo gem sources -a http://gems.github.com (you only have to do this once)
     $ sudo gem install rafaelp-dbdesigner_generators
 
-Inset line below in your *config/environments/development.rb*
-
-    require 'dbdesigner_migration_generator'
-
 ## USAGE
 
 Save you model in *db/dbdesigner_model.xml*, then run:
