@@ -1,5 +1,5 @@
 spec = Gem::Specification.new do |s| 
-  s.name = "rafaelp-dbdesigner_generators"
+  s.name = "dbdesigner_generators"
   s.version = "0.1.2"
   s.date     = "2009-09-20"
   s.author = "Rafael Lima"
